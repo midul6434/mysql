@@ -1,0 +1,675 @@
+My SQL Queries
+
+
+# Select:
+
+
+
+select * from customers;
+
+select customerNumber,customerName,salesRepEmployeeNumber from customers;
+
+
+
+
+select addressLine1,country,postalCode from customers;
+
+
+select * from employees;
+
+
+SELECT      lastname, firstname, jobtitle FROM     employees;
+
+
+select employeeNumber, extension, email from employees;
+
+
+select * from orders;
+
+
+
+
+select orderNumber,orderDate,requiredDate from orders;
+
+
+select customerNumber,checkNumber,paymentDate from payments;
+
+
+
+
+select productLine, htmlDescription,image from productlines;
+
+
+# Select Distinct:
+
+
+describe customers;
+
+
+select distinct country from customers;
+
+
+select distinct contactLastName,contactFirstName,phone from customers;
+
+
+select distinct salesRepEmployeeNumber,creditLimit,city from customers;
+
+
+select distinct state from customers where country= 'usa';
+
+
+select distinct employeeNumber,lastName,firstName from employees;
+
+
+
+
+select distinct employeeNumber,lastName,firstName from employees order by lastName;
+
+
+select distinct  customerNumber,checkNumber,paymentDate from payments;
+
+
+select distinct  productLine, textDescription, htmlDescription from productlines where textdescription is not  null limit 10;
+
+
+
+select distinct officeCode,city,territory from offices order by city desc;
+
+
+
+
+# Order By:
+
+
+
+select distinct officeCode,city,territory from offices order by city desc;
+
+
+
+
+select distinct officeCode,city,territory from offices order by officeCode;
+
+
+select distinct officeCode,city,territory from offices order by officeCode, city desc;
+
+
+
+
+select customerName,contactLastName,city from customers orderby;
+
+
+
+
+select customerName,contactLastName,city from customers order by customerName;
+
+
+select customerName,contactLastName,city from customers order by customerName, city desc;
+
+
+select employeeNumber,firstName,jobTitle from employees orderby;
+
+
+select customerName,postalcode,country from customers order by country,customerName desc;
+
+
+
+
+
+select orderNumber,productCode,priceEach from orderdetails order by priceEach desc limit 20;
+
+
+
+
+SELECT
+->     orderNumber, status
+-> FROM
+->     orders
+-> ORDER BY FIELD(status,
+->         'In Process',
+->         'On Hold',
+->         'Cancelled',
+->         'Resolved',
+->         'Disputed',
+->         'Shipped')
+
+
+
+
+
+# Where:
+
+
+select customerName,contactLastName,city from customers where city='Milan';
+
+
+select customerName,contactLastName,city, salesRepEmployeeNumber from customers where contactLastName='Snowden';
+
+
+
+
+
+select customerName,contactLastName,city,creditlimit from customers where creditlimit >'6000';
+
+
+
+SELECT      lastname,      firstname,      jobtitle FROM     employees WHERE     jobtitle = 'Sales Rep';
+
+
+
+select extension,lastName,firstName,jobTitle from employees where extension='x101';
+
+
+
+
+
+select extension,lastName,firstName,jobTitle,officeCode from employees where jobTitle='Sales Rep ' and officeCode='7';
+
+
+
+select customerNumber,checkNumber,paymentDate from payments where paymentDate='2004-02-13';
+
+
+
+
+
+select orderDate,shippedDate,status,customerNumber from orders where shippedDate is null;
+
+
+
+select productCode,productName,buyPrice,MSRP from products where buyprice <'30';
+
+
+
+
+
+select productCode,productName,buyPrice,MSRP from products where productName='1939 Chevrolet Deluxe Coupe';
+
+
+
+# And:
+
+
+
+select customerName,phone,city,state from customers where city='nyc' and state='ny';
+
+
+
+
+
+select contactLastName,contactFirstName,city,creditLimit from customers where city='nyc' and creditLimit>'500';
+
+
+
+select extension,lastName,firstName,jobTitle,officeCode from employees where jobTitle='Sales Rep ' and officeCode='7';
+
+
+
+select lastName,firstName,email from employees where firstName='Andy' and email='afixter@classicmodelcars.com';
+
+
+
+
+
+select customerNumber,orderNumber,status  from  orders where customerNumber='398' and orderNumber='10408';
+
+
+
+
+
+
+# Or:
+
+
+SELECT      customername,   country FROM      customers WHERE country = 'USA'  OR country = 'France';
+
+
+
+select customerNumber,contactFirstName,creditLimit from customers where contactFirstName='Carmen' or contactFirstName='Sue';
+
+
+
+
+
+
+select customerNumber,contactFirstName,creditLimit from customers where contactFirstName='Carmen' or contactFirstName='Sue' and creditLimit>'500';
+
+
+
+
+select customerNumber,checkNumber,paymentDate from payments where customerNumber='475' or customerNumber<>'300';
+
+
+
+
+
+
+select orderDate,customerNumber,shippedDate from orders where shippedDate='2005-05-12' or shippedDate is null;
+
+
+
+
+# IN:
+
+
+select customerNumber,contactLastName,country from customers where country in ('usa','italy');
+
+
+
+select customerNumber,contactLastName,country from customers where country not  in ('usa','italy');
+
+
+
+select employeeNumber,firstName,jobTitle from employees where jobTitle in(select jobTitle ='Sales Rep ' from employees);
+
+
+
+select orderNumber,requiredDate,status from orders where ordernumber in (10410,10419,10424);
+
+
+
+
+
+select orderNumber,quantityOrdered,priceEach from orderdetails where quantityOrdered in (49,26,38,28,55) and priceEach>'40';
+
+
+
+
+
+
+
+# Between:
+
+
+select orderNumber,orderDate,customerNumber from orders where customerNumber between 150 and 250;
+
+
+
+
+
+
+select orderNumber,orderDate,shippedDate from orders where orderNumber between  10385 and  10425;
+
+
+
+select productCode,priceEach,quantityOrdered from orderdetails where priceEach between 50 and 200;
+
+
+
+select customerNumber,checkNumber,amount from payments where customerNumber between 400 and 450;
+
+
+
+
+
+select productLine,buyPrice,MSRP from products where buyPrice between 24.23 and  53.63;
+
+
+
+
+
+
+
+
+# Like:
+
+
+select customerName,contactFirstName,city from customers where contactFirstName like 'a%';
+
+
+
+select customerName,contactFirstName,city from customers where city like 'm%';
+
+
+select jobTitle,lastName,firstName from employees where jobTitle like 'Sales Rep%';
+
+
+
+
+
+select customerNumber,paymentDate,amount from payments where amount between 2000 and 4000;
+
+
+
+
+
+select customerNumber,paymentDate,amount from payments where amount between 2000 and 4000 limit 5;
+
+
+
+
+
+
+# Is Null:
+
+
+select customerName,state,salesRepEmployeeNumber from customers where state is null;
+
+
+
+
+
+
+select lastName,officeCode,reportsTo from employees where officeCode is not null;
+
+
+
+SELECT      customerNumber,     salesRepEmployeeNumber FROM     customers WHERE     salesRepEmployeeNumber = 110 OR     salesRepEmployeeNumber IS NULL;
+
+select orderNumber,shippedDate,customerNumber from orders where shippedDate is null;
+
+
+
+
+
+
+select orderNumber,quantityOrdered,productCode from orderdetails where quantityOrdered is not null;
+
+
+
+
+
+
+
+
+
+# Table & Column Aliases:
+
+
+select concat (contactLastName,contactFirstName) as `Full Name`  from customers;
+
+
+
+
+
+select concat (contactLastName,contactFirstName) as `Full Name`  from customers order by contactLastName  limit 7;
+
+
+
+
+
+select customerNumber,paymentDate,amount from payments where amount >'5000';
+
+
+
+SELECT  customerName,  COUNT(o.orderNumber) total FROM  customers c INNER JOIN orders o ON c.customerNumber = o.customerNumber GROUP BY  customerName ORDER BY  total DESC;SELECT  customerName,  COUNT(o.orderNumber) total FROM  customers c INNER JOIN orders o ON c.customerNumber = o.customerNumber GROUP BY  customerName ORDER BY  total DESC;
+
+
+
+
+
+
+
+
+
+
+# Joins:
+
+
+
+select productName,productScale,productCode from products inner join orderdetails using (productcode) order by productCode;
+
+
+
+
+select customerNumber,customerName,city from customers inner join payments using (customerNumber) order by customerName;
+
+
+
+
+
+select productLine,productname,productscale from productlines inner join products using (productLine) order by productname limit 10;
+
+
+
+
+
+select orderNumber orderDate,status from orders inner join orderdetails using (orderNumber) limit 100;
+
+select orderNumber,productName priceEach,MSRP from products p inner join orderdetails o on p.productCode=o.productCode and p.MSRP>o.priceEach;
+
+
+
+
+
+select customerName,addressLine1,city,checknumber from customers left join payments using (customerNumber);
+
+
+
+select customerName,addressLine1,city,checknumber from customers left join payments using (customerNumber) where city='Boston';
+
+
+
+
+
+select productName,priceEach,buyPrice,MSRP,orderlinenumber from products left join orderdetails  using (productCode);
+
+
+
+
+
+select productName,priceEach,buyPrice,MSRP,orderlinenumber from products left join orderdetails  using (productCode) where priceEach>50 limit 50;
+
+
+
+
+
+select productCode,productName,buyPrice,image from products left join productlines  using (productLine) where productCode is not null;
+
+
+
+select customerName, concat (city) as c, state, checknumber from customers right join payments using (customerNumber);
+
+
+
+select customerName, concat (city) as c, state, checknumber from customers right join payments using (customerNumber) limit 10;
+
+
+
+select productName,productLine,priceeach,MSRP from products right join orderdetails using (productCode);
+
+
+
+select productName,productLine,priceeach,MSRP from products right join orderdetails using (productCode) where productLine='Classic Cars' limit 10;
+
+
+
+
+
+
+select orderDate,shippedDate,status,priceeach from orders right join orderdetails using (orderNumber) where orderDate is not null and status='shipped' limit 10;
+
+
+
+
+
+
+select concat (m.lastname,',', m.firstname) as 'manager', concat(e.lastname,',', e.firstname)as 'direct report' FROM     employees e         INNER JOIN     employees m ON m.employeeNumber = e.reportsto ORDER BY manager;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Group by:
+
+
+select customerNumber,customerName,city,postalCode from customers group by postalCode,city,customerName, customerNumber;
+
+
+
+
+
+
+
+select orderDate,shippedDate,status,productcode from orders inner join orderdetails using (orderNumber) group by orderDate,status,shippedDate,productcode;
+
+
+
+
+
+SELECT      YEAR(orderDate) AS year,     SUM(quantityOrdered * priceEach) AS total FROM     orders         INNER JOIN     orderdetails USING (orderNumber) WHERE     status = 'in process' GROUP BY year HAVING year > 2005;
+
+
+
+
+
+select productCode, priceEach,status from orderdetails left join orders using (orderNumber) group by status,priceEach,productCode;
+
+
+
+
+select productLine,textDescription from productlines group by textDescription,productLine;
+# Having:
+
+
+select orderNumber, sum(quantityOrdered) as itemscount, sum(priceEach*quantityOrdered) as total from orderdetails group by orderNumber having total > 1000 and itemscount > 600 limit 10;
+
+
+
+
+
+select orderNumber,status,customerNumber from orders having orderNumber >10000 limit 50;
+
+
+
+
+
+
+
+
+select a.orderNumber,status, sum(priceEach*quantityOrdered) total from orderdetails a inner join orders b on a.orderNumber=b.orderNumber group by orderNumber,status having status='shipped' and total > 1500;
+
+
+
+
+
+
+select customerNumber,customerName,city from customers having customerNumber > 400;
+
+
+
+
+
+select employeeNumber,lastName,extension from employees having lastName ='Bow';
+
+
+
+
+
+# Roll Up:
+
+
+select orderNumber,orderDate,status from orders  group by orderDate,orderNumber,status with rollup;
+
+
+
+
+
+
+
+select orderDate,shippedDate,status,productcode from orders inner join orderdetails using (orderNumber) group by orderDate,status,shippedDate,productcode with rollup;
+
+
+
+
+
+select contactLastName,phone,city from customers group by phone,city,contactLastName with rollup;
+
+
+
+
+
+
+select customerName,city,state,checknumber from customers left join payments using (customerNumber) group by customerName,city,checknumber,state with rollup;
+
+
+
+
+
+
+
+select customerName,city,state,checknumber from customers inner join payments using (customerNumber) group by customerName,city,checknumber,state with rollup;
+
+
+# Subquery:
+
+
+select lastName,firstName from employees where officeCode in (select officecode from offices where country = 'usa');
+
+
+
+
+
+
+SELECT      customerNumber, checkNumber, amount FROM     payments WHERE     amount > (SELECT              AVG(amount)         FROM             payments);
+
+
+
+
+
+SELECT      MAX(items), MIN(items), FLOOR(AVG(items)) FROM     (SELECT          orderNumber, COUNT(orderNumber) AS items     FROM         orderdetails     GROUP BY orderNumber) AS lineitems;
+
+
+
+
+
+
+select customerName,customerNumber,city from customers where customerNumber in (select customerName from payments where city='London');
+
+
+
+
+
+SELECT      productname,      buyprice FROM     products p1 WHERE     buyprice > (SELECT              AVG(buyprice)         FROM             products         WHERE             productline = p1.productline);
